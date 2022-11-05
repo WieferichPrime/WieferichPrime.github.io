@@ -1,0 +1,102 @@
+body {
+    background-color: whitesmoke;
+    font-family: 'Roboto', sans-serif;
+}
+main {
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+}
+.author {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+}
+
+.round {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: bold;
+    border: 2px solid black;
+    padding: 5px 15px;
+    border-radius: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background-color: whitesmoke;
+}
+
+.round-group {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.round-group-v {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+}
+
+.bi-arrow-down-short {
+    display: none;
+}
+
+.rotate {
+    animation: rotate 0.5s linear;
+}
+
+.appear {
+    animation: appear 0.5s linear;
+}
+
+.output-item:last-child {
+    animation: appear-left 0.5s linear;
+}
+
+.stack-item:last-child {
+    animation: appear-top 0.5s linear;
+}
+
+@keyframes rotate {
+    from {
+        opacity: 0;
+        transform: rotate(-180deg);
+    }
+    to {
+        opacity: 1;
+        transform: rotate(0);
+    }
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: rotate(0);
+    }
+}
+
+@keyframes appear-left {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: rotate(0);
+    }
+}
+
+@keyframes appear-top {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: rotate(0);
+    }
+}
