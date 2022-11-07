@@ -100,3 +100,25 @@ main {
         transform: rotate(0);
     }
 }
+
+@media screen and (max-width: 480px) {
+    .input-group {
+        font-size: 14px;
+        flex-direction: column;
+        align-items: center;
+    }
+    .input-group #calculate,.input-group div,.input-group #input_expr {
+        margin-top: 10px !important;
+        border-radius: 5px !important;
+    }
+
+    #input_expr {
+        width: 100%;
+    }
+
+    .author {
+        transform: rotate(-90deg);
+        right: -200px;
+        bottom: 220px;
+    }
+}
