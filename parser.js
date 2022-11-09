@@ -132,7 +132,7 @@ export class CheckSyntax {
         }
     }
 
-    int = () => {//переделать, идти слева направо
+    int = () => {
         try {
             try {
                 let minuses = 1;
@@ -154,6 +154,10 @@ export class CheckSyntax {
                 this.height -= 1;
                 return value;
             } catch {
+                while (this.current_tok[1] == 'PLUS') {
+                    this.checkT('PLUS');
+                    this.advance();
+                }
                 const value = this.value();
                 this.buffer.push(this.current_tok);
                 this.advance();
