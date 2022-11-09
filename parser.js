@@ -132,38 +132,55 @@ export class CheckSyntax {
         }
     }
 
+    minuses = () => {
+        let minuses = 1;
+        this.checkT('MINUS');
+        this.advance();
+        while (this.current_tok[1] == 'MINUS') {
+            this.checkT('MINUS');
+            this.advance();
+            minuses += 1;
+        }
+        return minuses;
+    }
+
+    pluses = () => {
+        this.checkT('PLUS');
+        this.advance();
+        while (this.current_tok[1] == 'PLUS') {
+            this.checkT('PLUS');
+            this.advance();
+        }
+    }
+
     int = () => {
         try {
-            try {
-                let minuses = 1;
-                this.checkT('MINUS');
-                this.advance();
-                while (this.current_tok[1] == 'MINUS') {
-                    this.checkT('MINUS');
-                    this.advance();
-                    minuses += 1;
-                }
-                const value = this.value();
-                const tokenCopy = this.current_tok.slice();
-                if (minuses % 2 == 1) {
-                    value.value = -value.value;
-                    tokenCopy[0] = -tokenCopy[0];
-                }
-                this.buffer.push(tokenCopy);
-                this.advance();
-                this.height -= 1;
-                return value;
-            } catch {
-                while (this.current_tok[1] == 'PLUS') {
-                    this.checkT('PLUS');
-                    this.advance();
-                }
+            let minuses = 0;
+            if (['MINUS','PLUS', 'INT'].indexOf(this.current_tok[1]) == -1) throw new Error();
+            if (this.current_tok[1] == 'MINUS') minuses += 1;
+            if (this.current_tok[1] == 'INT') {
                 const value = this.value();
                 this.buffer.push(this.current_tok);
                 this.advance();
                 this.height -= 1;
-                return value; 
+                return value;
             }
+
+            this.advance();
+            while (this.current_tok[1] == 'MINUS' || this.current_tok[1] == 'PLUS') {
+                if (this.current_tok[1] == 'MINUS') minuses += 1;
+                this.advance();
+            }
+            const value = this.value();
+            const tokenCopy = this.current_tok.slice();
+            if (minuses % 2 == 1) {
+                value.value = -value.value;
+                tokenCopy[0] = -tokenCopy[0];
+            }
+            this.buffer.push(tokenCopy);
+            this.advance();
+            this.height -= 1;
+            return value;
         } catch {
             throw new Error();
         }
